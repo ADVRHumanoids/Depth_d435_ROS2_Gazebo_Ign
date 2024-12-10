@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="d435i_robot">
+
+  <!-- Static root frame -->
+  <link name="root_static_frame">
+    <visual>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="Gazebo/Transparent"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.001"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+  </link>
+
+<joint name="root_to_base_joint" type="fixed">
+  <parent link="root_static_frame"/>
+  <child link="D435/base_link"/>
+  <origin xyz="0 0 1.5" rpy="0 0 0"/>
+</joint>
+
+
+  <!-- Include URDF and Gazebo-specific files -->
+  <xacro:include filename="$(find depth_d435)/urdf/_d435i.urdf.xacro"/>
+  <xacro:include filename="$(find depth_d435)/urdf/_d435i.gazebo.xacro"/>
+
+  <!-- Instantiate the RealSense camera -->
+  <xacro:d435i_links_and_joints ns="D435"/>
+  <xacro:d435i_gazebo_sensors ns="D435" camera_name="D435_camera"/>
+
+</robot>

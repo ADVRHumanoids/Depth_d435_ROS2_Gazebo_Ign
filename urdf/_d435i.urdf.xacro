@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="d435i_camera">
+
+  <xacro:macro name="d435i_links_and_joints" params="ns">
+    <!-- Camera Base -->
+    <link name="${ns}/base_link"/>
+
+    <joint name="${ns}/camera_bottom_screw_joint" type="fixed">
+      <parent link="${ns}/base_link"/>
+      <child link="${ns}/camera_bottom_screw_frame"/>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+    </joint>
+
+    <link name="${ns}/camera_bottom_screw_frame"/>
+
+    <joint name="${ns}/camera_link_joint" type="fixed">
+      <parent link="${ns}/camera_bottom_screw_frame"/>
+      <child link="${ns}/camera_link"/>
+    </joint>
+
+    <link name="${ns}/camera_link">
+      <visual>
+        <geometry>
+          <mesh filename="package://depth_d435/meshes/d435.dae" scale="1.0 1.0 1.0"/>
+        </geometry>
+        <material name="gray"/>
+      </visual>
+    </link>
+
+    <!-- Depth Camera -->
+    <joint name="${ns}/camera_depth_joint" type="fixed">
+      <parent link="${ns}/camera_link"/>
+      <child link="${ns}/camera_depth_frame"/>
+    </joint>
+
+    <link name="${ns}/camera_depth_frame"/>
+
+    <joint name="${ns}/camera_depth_optical_joint" type="fixed">
+      <parent link="${ns}/camera_depth_frame"/>
+      <child link="${ns}/camera_depth_optical_frame"/>
+    </joint>
+
+    <link name="${ns}/camera_depth_optical_frame"/>
+
+    <!-- Color Camera -->
+    <joint name="${ns}/camera_color_joint" type="fixed">
+      <parent link="${ns}/camera_link"/>
+      <child link="${ns}/camera_color_frame"/>
+    </joint>
+
+    <link name="${ns}/camera_color_frame"/>
+
+    <joint name="${ns}/camera_color_optical_joint" type="fixed">
+      <parent link="${ns}/camera_color_frame"/>
+      <child link="${ns}/camera_color_optical_frame"/>
+    </joint>
+
+    <link name="${ns}/camera_color_optical_frame"/>
+  </xacro:macro>
+
+</robot>
