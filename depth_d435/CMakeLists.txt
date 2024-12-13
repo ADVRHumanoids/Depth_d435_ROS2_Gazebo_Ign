@@ -8,7 +8,7 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 
-install(DIRECTORY launch urdf meshes rviz worlds src scripts
+install(DIRECTORY launch urdf meshes rviz worlds
   DESTINATION share/${PROJECT_NAME}
 )
 if(BUILD_TESTING)
